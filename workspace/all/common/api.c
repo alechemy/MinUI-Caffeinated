@@ -1480,7 +1480,7 @@ void PWR_update(int* _dirty, int* _show_setting, PWR_callback_t before_sleep, PW
 	
 	if (
 		pwr.requested_sleep || // hardware requested sleep
-		now-last_input_at>=SLEEP_DELAY || // autosleep
+		// now-last_input_at>=SLEEP_DELAY || // autosleep
 		(pwr.can_sleep && PAD_justReleased(BTN_SLEEP)) // manual sleep
 	) {
 		pwr.requested_sleep = 0;
@@ -1604,7 +1604,7 @@ static void PWR_waitForWake(void) {
 			break;
 		}
 		SDL_Delay(200);
-		if (pwr.can_poweroff && SDL_GetTicks()-sleep_ticks>=120000) { // increased to two minutes
+		if (pwr.can_poweroff && SDL_GetTicks()-sleep_ticks>=3600000) { // increased to 1 hour
 			if (pwr.is_charging) sleep_ticks += 60000; // check again in a minute
 			else PWR_powerOff();
 		}
